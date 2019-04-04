@@ -6,7 +6,7 @@ namespace the_forests_of_gwynwyr
 {
     public class Game1 : SadConsole.Game
     {
-        public Game1() : base("", Config.GAMEWIDTH, Config.GAMEHEIGHT, null)
+        public Game1() : base("", CONFIG.WIDTH, CONFIG.HEIGHT, null)
         {
             Content.RootDirectory = "Content";
         }
@@ -16,34 +16,33 @@ namespace the_forests_of_gwynwyr
             IsMouseVisible = false;
             base.Initialize();
 
-            SadConsole.Game.Instance.Window.Title = "The Forests of Gwynwyr";
-            SadConsole.Settings.ResizeMode = SadConsole.Settings.WindowResizeOptions.Fit;
+            SadConsole.Game.Instance.Window.Title = CONFIG.TITLE;
+            SadConsole.Settings.ResizeMode =
+                SadConsole.Settings.WindowResizeOptions.Fit;
             SadConsole.Settings.AllowWindowResize = true;
             SadConsole.Settings.ToggleFullScreen();
 
+            var mainConsole = new SadConsole.Console(CONFIG.WIDTH, CONFIG.HEIGHT);
 
-            var mainConsole = new SadConsole.Console(
-                Config.GAMEWIDTH, Config.GAMEHEIGHT);
-
-            var prompt = new lib.CustomConsoles.DOSConsole(
-                Config.GAMEWIDTH - 2, Config.GAMEHEIGHT - 1)
+            var promptResults = new SadConsole.ScrollingConsole(
+                CONFIG.WIDTH - 2, CONFIG.HEIGHT - 1)
             {
-                Position = new Point(1, 1)
+                Position = new Point(1, 1),
+                UseKeyboard = false
             };
-            SadConsole.Global.CurrentScreen.Children.Add(prompt);
-            prompt.UseKeyboard = true;
+            SadConsole.Global.CurrentScreen.Children.Add(promptResults);
 
-
-            var statusBar = new StatusBar(Config.GAMEFG, Config.GAMEBG);
+            var statusBar = new StatusBar(CONFIG.FG, CONFIG.BG);
             SadConsole.Global.CurrentScreen.Children.Add(statusBar);
             statusBar.Render("The Clearing", "NSEW", 1, 2, 3);
 
-            var promptBar = new PromptBar(Config.GAMEFG, Config.GAMEBG)
+            var promptBar = new PromptBar(CONFIG.FG, CONFIG.BG)
             {
-                Position = new Point(0, Config.GAMEHEIGHT - 1)
+                Position = new Point(0, CONFIG.HEIGHT - 1),
+                UseKeyboard = true
             };
             SadConsole.Global.CurrentScreen.Children.Add(promptBar);
-            promptBar.UseKeyboard = true;
+
             SadConsole.Global.FocusedConsoles.Set(promptBar);
 
         }
