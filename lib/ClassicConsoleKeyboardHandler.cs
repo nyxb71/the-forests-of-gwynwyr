@@ -7,7 +7,7 @@ using SadConsole;
 using System;
 using SadConsole.Components;
 
-namespace the_forests_of_gwynwyr.lib.InputHandling
+namespace game.lib.InputHandling
 {
     class ClassicConsoleKeyboardHandler : KeyboardConsoleComponent
     {
@@ -33,7 +33,7 @@ namespace the_forests_of_gwynwyr.lib.InputHandling
                 else if (key.Key == Keys.Back)
                 {
                     // Get the prompt that the console has.
-                    string prompt = ((the_forests_of_gwynwyr.lib.CustomConsoles.DOSConsole)console).Prompt;
+                    string prompt = ((game.lib.CustomConsoles.DOSConsole)console).Prompt;
 
                     // If the console has scrolled since the user started typing, adjust the starting row of the virtual cursor by that much.
                     if (console.TimesShiftedUp != 0)
@@ -57,8 +57,9 @@ namespace the_forests_of_gwynwyr.lib.InputHandling
                         console.TimesShiftedUp = 0;
                     }
 
-                    // Get the prompt to exclude it in determining the total length of the string the user has typed.
-                    string prompt = ((the_forests_of_gwynwyr.lib.CustomConsoles.DOSConsole)console).Prompt;
+                    // Get the prompt to exclude it in determining the total
+                    // length of the string the user has typed.
+                    string prompt = ((game.lib.CustomConsoles.DOSConsole)console).Prompt;
                     int startingIndex = console.GetIndexFromPoint(new Point(prompt.Length, CursorLastY));
                     string data = ((ScrollingConsole)console).GetString(startingIndex, console.GetIndexFromPoint(console.Cursor.Position) - startingIndex);
 
@@ -71,7 +72,7 @@ namespace the_forests_of_gwynwyr.lib.InputHandling
                     // After they have processed the string, we will create a new line and display the prompt.
                     console.Cursor.CarriageReturn().LineFeed();
                     console.Cursor.DisableWordBreak = true;
-                    console.Cursor.Print(((the_forests_of_gwynwyr.lib.CustomConsoles.DOSConsole)console).Prompt);
+                    console.Cursor.Print(((game.lib.CustomConsoles.DOSConsole)console).Prompt);
                     console.Cursor.DisableWordBreak = false;
                     CursorLastY = console.Cursor.Position.Y;
 

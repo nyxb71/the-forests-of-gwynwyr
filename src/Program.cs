@@ -3,7 +3,7 @@ using SadConsole;
 using Microsoft.Xna.Framework;
 using Console = SadConsole.Console;
 
-namespace the_forests_of_gwynwyr
+namespace game
 {
     public static class Program
     {

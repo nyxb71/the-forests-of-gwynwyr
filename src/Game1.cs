@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace the_forests_of_gwynwyr
+namespace game
 {
     public class Game1 : SadConsole.Game
     {

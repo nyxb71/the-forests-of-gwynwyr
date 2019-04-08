@@ -1,12 +1,14 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using SadConsole.Components;
+using SadConsole.Input;
 
-namespace the_forests_of_gwynwyr
+namespace game
 {
     internal class InvertedBar : SadConsole.Console
     {
-        public InvertedBar(Color fg, Color bg) : base(Config.GAMEWIDTH, 1)
+        public InvertedBar(Color fg, Color bg) : base(CONFIG.WIDTH, 1)
         {
             Cursor.IsVisible = false;
             this.IsVisible = true;
@@ -39,20 +41,23 @@ namespace the_forests_of_gwynwyr
 
     class PromptBar : InvertedBar
     {
-        private const string _prompt = "> ";
-        // private lib.InputHandling.ClassicConsoleKeyboardHandler _keyboardHandler;
+        public string Prompt { get; set; }
+        private lib.InputHandling.ClassicConsoleKeyboardHandler _keyboardHandler;
 
         public PromptBar(Color fg, Color bg) : base(fg, bg)
         {
+            Prompt = " > ";
             // _keyboardHandler = new lib.InputHandling.ClassicConsoleKeyboardHandler();
             // Components.Add(_keyboardHandler);
-            // _keyboardHandler.EnterPressedAction = EnterPressedActionHandler;
+            _keyboardHandler.EnterPressedAction = EnterPressedActionHandler;
+
 
             UseKeyboard = true;
             Cursor.IsVisible = true;
 
             ClearText();
         }
+
 
         public void ClearText()
         {
@@ -66,5 +71,38 @@ namespace the_forests_of_gwynwyr
             Cursor.Print(value.ToLower());
         }
 
+    }
+
+
+    class PromptKeyboardHandler : KeyboardConsoleComponent
+    {
+
+        public Action<string> EnterPressedAction = (s) => { int i = s.Length; };
+
+        public override void ProcessKeyboard(SadConsole.Console console,
+            SadConsole.Input.Keyboard info, out bool handled)
+        {
+            foreach (var key in info.KeysPressed)
+            {
+                if (key.Character != '\0')
+                    console.Cursor.Print(key.Character.ToString());
+
+                // else if (key.Key == Keys.Back)
+                // {
+                //     string prompt = ((game.PromptBar)console).Prompt;
+
+                // }
+
+                if (key.Key == Keys.Enter)
+                {
+                    string prompt = ((game.PromptBar)console).Prompt;
+                    int start = prompt.Length;
+                    string data = console.GetString(start, CONFIG.WIDTH);
+                    EnterPressedAction(data);
+                }
+
+            }
+            handled = true;
+        }
     }
 }

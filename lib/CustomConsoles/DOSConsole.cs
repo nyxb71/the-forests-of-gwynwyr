@@ -2,13 +2,13 @@
 
 using System;
 
-namespace the_forests_of_gwynwyr.lib.CustomConsoles
+namespace game.lib.CustomConsoles
 {
     class DOSConsole : SadConsole.ScrollingConsole
     {
         public string Prompt { get; set; }
 
-        private the_forests_of_gwynwyr.lib.InputHandling.ClassicConsoleKeyboardHandler _keyboardHandlerObject;
+        private game.lib.InputHandling.ClassicConsoleKeyboardHandler _keyboardHandlerObject;
 
         // This console domonstrates a classic MS-DOS or Windows Command Prompt
         // style console.
@@ -19,7 +19,7 @@ namespace the_forests_of_gwynwyr.lib.CustomConsoles
 
             // This is our cusotmer keyboard handler we'll be using to process
             // the cursor on this console.
-            _keyboardHandlerObject = new the_forests_of_gwynwyr.lib.InputHandling.ClassicConsoleKeyboardHandler();
+            _keyboardHandlerObject = new game.lib.InputHandling.ClassicConsoleKeyboardHandler();
 
             // Assign our custom handler method from our handler object to this
             // consoles keyboard handler. We could have overridden the

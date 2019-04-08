@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace the_forests_of_gwynwyr
+namespace game
 {
     public class CONFIG
     {
