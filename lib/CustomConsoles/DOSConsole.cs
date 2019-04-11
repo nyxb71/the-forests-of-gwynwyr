@@ -7,6 +7,7 @@ namespace game.lib.CustomConsoles
     class DOSConsole : SadConsole.ScrollingConsole
     {
         public string Prompt { get; set; }
+        private int initHeight = 32;
 
         private game.lib.InputHandling.ClassicConsoleKeyboardHandler _keyboardHandlerObject;
 
@@ -39,10 +40,10 @@ namespace game.lib.CustomConsoles
 
 
             // Startup description
-            ClearText();
-            Cursor.Position = new Point(0, 24);
-            Cursor.Print("Try typing in the following commands: help, ver, cls, look. If you type exit or quit, the program will end.").NewLine().NewLine();
-            _keyboardHandlerObject.CursorLastY = 24;
+            ClearText(initHeight);
+            Cursor.Position = new Point(0, initHeight);
+            Cursor.Print("").NewLine().NewLine();
+            _keyboardHandlerObject.CursorLastY = initHeight;
             TimesShiftedUp = 0;
 
             Cursor.DisableWordBreak = true;
@@ -50,11 +51,11 @@ namespace game.lib.CustomConsoles
             Cursor.DisableWordBreak = false;
         }
 
-        public void ClearText()
+        public void ClearText(int initHeight)
         {
             Clear();
-            Cursor.Position = new Point(0, 24);
-            _keyboardHandlerObject.CursorLastY = 24;
+            Cursor.Position = new Point(0, initHeight);
+            _keyboardHandlerObject.CursorLastY = initHeight;
         }
 
         private void EnterPressedActionHandler(string value)
@@ -75,7 +76,7 @@ namespace game.lib.CustomConsoles
                 Cursor.Print("  SadConsole for MonoGame").NewLine();
 
             else if (value.ToLower() == "cls")
-                ClearText();
+                ClearText(initHeight);
 
             else if (value.ToLower() == "look")
                 Cursor.Print("  Looking around you discover that you are in a dark and empty room. To your left there is a computer monitor in front of you and Visual Studio is opened, waiting for your next command.").NewLine();

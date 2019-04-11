@@ -2,16 +2,44 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using SadConsole.Components;
-using SadConsole.Input;
 
 namespace game
 {
+    public class UserInterface
+    {
+        public static void Init()
+        {
+            SadConsole.Game.Instance.Window.Title = CONFIG.TITLE;
+            SadConsole.Settings.ResizeMode =
+                SadConsole.Settings.WindowResizeOptions.Fit;
+            SadConsole.Settings.AllowWindowResize = true;
+
+            var prompt = new lib.CustomConsoles.DOSConsole(
+                CONFIG.WIDTH, CONFIG.HEIGHT - 1)
+            {
+                Position = new Point(0, 1),
+                UseKeyboard = true
+            };
+            SadConsole.Global.CurrentScreen.Children.Add(prompt);
+
+            var statusBar = new StatusBar(CONFIG.FG, CONFIG.BG)
+            {
+                IsVisible = true
+            };
+            SadConsole.Global.CurrentScreen.Children.Add(statusBar);
+
+            statusBar.Render("The Clearing", "NSEW", 1, 2, 3);
+
+            SadConsole.Global.FocusedConsoles.Set(prompt);
+
+        }
+    }
+
     internal class InvertedBar : SadConsole.Console
     {
         public InvertedBar(Color fg, Color bg) : base(CONFIG.WIDTH, 1)
         {
             Cursor.IsVisible = false;
-            this.IsVisible = true;
             this.DefaultBackground = fg;
             this.DefaultForeground = bg;
             this.Cursor.PrintAppearance.Foreground = fg;
@@ -37,72 +65,5 @@ namespace game
         public void Render(string loc, string exits, uint hp, uint lvl, uint xp) =>
             this.PrintInverted(1, 0,
                 string.Format(_fmtString, loc, exits, hp, lvl, xp));
-    }
-
-    class PromptBar : InvertedBar
-    {
-        public string Prompt { get; set; }
-        private lib.InputHandling.ClassicConsoleKeyboardHandler _keyboardHandler;
-
-        public PromptBar(Color fg, Color bg) : base(fg, bg)
-        {
-            Prompt = " > ";
-            // _keyboardHandler = new lib.InputHandling.ClassicConsoleKeyboardHandler();
-            // Components.Add(_keyboardHandler);
-            _keyboardHandler.EnterPressedAction = EnterPressedActionHandler;
-
-
-            UseKeyboard = true;
-            Cursor.IsVisible = true;
-
-            ClearText();
-        }
-
-
-        public void ClearText()
-        {
-            Clear();
-            Cursor.Position = new Point(3, 0);
-            // _keyboardHandler.CursorLastY = 0;
-        }
-
-        private void EnterPressedActionHandler(string value)
-        {
-            Cursor.Print(value.ToLower());
-        }
-
-    }
-
-
-    class PromptKeyboardHandler : KeyboardConsoleComponent
-    {
-
-        public Action<string> EnterPressedAction = (s) => { int i = s.Length; };
-
-        public override void ProcessKeyboard(SadConsole.Console console,
-            SadConsole.Input.Keyboard info, out bool handled)
-        {
-            foreach (var key in info.KeysPressed)
-            {
-                if (key.Character != '\0')
-                    console.Cursor.Print(key.Character.ToString());
-
-                // else if (key.Key == Keys.Back)
-                // {
-                //     string prompt = ((game.PromptBar)console).Prompt;
-
-                // }
-
-                if (key.Key == Keys.Enter)
-                {
-                    string prompt = ((game.PromptBar)console).Prompt;
-                    int start = prompt.Length;
-                    string data = console.GetString(start, CONFIG.WIDTH);
-                    EnterPressedAction(data);
-                }
-
-            }
-            handled = true;
-        }
     }
 }

@@ -1,7 +1,4 @@
 ﻿using System;
-using SadConsole;
-using Microsoft.Xna.Framework;
-using Console = SadConsole.Console;
 
 namespace game
 {

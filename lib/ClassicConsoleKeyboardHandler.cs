@@ -20,7 +20,7 @@ namespace game.lib.InputHandling
         public override void ProcessKeyboard(SadConsole.Console consoleObject, SadConsole.Input.Keyboard info, out bool handled)
         {
             // Upcast this because we know we're only using it with a Console type.
-            var console = (ScrollingConsole)consoleObject;
+            var console = (SadConsole.Console)consoleObject;
 
             // Check each key pressed.
             foreach (var key in info.KeysPressed)
