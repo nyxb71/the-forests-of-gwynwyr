@@ -2,13 +2,14 @@
 
 using System;
 
-namespace the_forests_of_gwynwyr.lib.CustomConsoles
+namespace game.lib.CustomConsoles
 {
     class DOSConsole : SadConsole.ScrollingConsole
     {
         public string Prompt { get; set; }
+        private int initHeight = 32;
 
-        private the_forests_of_gwynwyr.lib.InputHandling.ClassicConsoleKeyboardHandler _keyboardHandlerObject;
+        private game.lib.InputHandling.ClassicConsoleKeyboardHandler _keyboardHandlerObject;
 
         // This console domonstrates a classic MS-DOS or Windows Command Prompt
         // style console.
@@ -19,7 +20,7 @@ namespace the_forests_of_gwynwyr.lib.CustomConsoles
 
             // This is our cusotmer keyboard handler we'll be using to process
             // the cursor on this console.
-            _keyboardHandlerObject = new the_forests_of_gwynwyr.lib.InputHandling.ClassicConsoleKeyboardHandler();
+            _keyboardHandlerObject = new game.lib.InputHandling.ClassicConsoleKeyboardHandler();
 
             // Assign our custom handler method from our handler object to this
             // consoles keyboard handler. We could have overridden the
@@ -39,10 +40,10 @@ namespace the_forests_of_gwynwyr.lib.CustomConsoles
 
 
             // Startup description
-            ClearText();
-            Cursor.Position = new Point(0, 24);
-            Cursor.Print("Try typing in the following commands: help, ver, cls, look. If you type exit or quit, the program will end.").NewLine().NewLine();
-            _keyboardHandlerObject.CursorLastY = 24;
+            ClearText(initHeight);
+            Cursor.Position = new Point(0, initHeight);
+            Cursor.Print("").NewLine().NewLine();
+            _keyboardHandlerObject.CursorLastY = initHeight;
             TimesShiftedUp = 0;
 
             Cursor.DisableWordBreak = true;
@@ -50,11 +51,11 @@ namespace the_forests_of_gwynwyr.lib.CustomConsoles
             Cursor.DisableWordBreak = false;
         }
 
-        public void ClearText()
+        public void ClearText(int initHeight)
         {
             Clear();
-            Cursor.Position = new Point(0, 24);
-            _keyboardHandlerObject.CursorLastY = 24;
+            Cursor.Position = new Point(0, initHeight);
+            _keyboardHandlerObject.CursorLastY = initHeight;
         }
 
         private void EnterPressedActionHandler(string value)
@@ -75,7 +76,7 @@ namespace the_forests_of_gwynwyr.lib.CustomConsoles
                 Cursor.Print("  SadConsole for MonoGame").NewLine();
 
             else if (value.ToLower() == "cls")
-                ClearText();
+                ClearText(initHeight);
 
             else if (value.ToLower() == "look")
                 Cursor.Print("  Looking around you discover that you are in a dark and empty room. To your left there is a computer monitor in front of you and Visual Studio is opened, waiting for your next command.").NewLine();
