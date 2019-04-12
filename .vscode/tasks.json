@@ -17,6 +17,10 @@
             "type": "process",
             "args": [
                 "publish",
+                "-c",
+                "Release",
+                "-r",
+                "win10-x64",
                 "${workspaceFolder}/game/the_forests_of_gwynwyr.csproj"
             ],
             "problemMatcher": "$tsc"
