@@ -1,2 +1,4 @@
 game/bin/
 game/obj/
+tests/bin/
+tests/obj/
