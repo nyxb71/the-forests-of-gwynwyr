@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using LaYumba.Functional;
 using static LaYumba.Functional.F;
@@ -16,7 +17,7 @@ namespace game
         north, south, east, west
     }
 
-    static class Parser
+    public static class Parser
     {
         /*
             Commands:
@@ -54,9 +55,9 @@ namespace game
             if (input.Length == 0) return (None, None);
 
             // Command with no argument
-            if (!input.Contains(" "))
+            if (!input.Contains(' '))
             {
-                ToEnum<Command>(input).Match(
+                return ToEnum<Command>(input).Match(
                     None: () => (None, None),
                     Some: (comm) => (Some(comm), None));
             }
