@@ -7,16 +7,6 @@ using static LaYumba.Functional.F;
 
 namespace game
 {
-    public enum Command
-    {
-        go, look, pickup, drop, use, put, open, inventory, save, load, restart
-    }
-
-    public enum Direction
-    {
-        north, south, east, west
-    }
-
     public static class Parser
     {
         /*
@@ -34,44 +24,31 @@ namespace game
             restart
          */
 
-        public static T ParseEnum<T>(string value) =>
-            (T)System.Enum.Parse(typeof(T), value, true);
+        public static readonly string[] Commands = {
+            "go", "look", "pickup", "drop", "use",
+            "put", "open", "inventory", "save", "load", "restart" };
 
-        public static Option<T> ToEnum<T>(string input)
-        {
-            try
-            {
-                return System.Enum.IsDefined(typeof(T), input) ?
-                    Some(ParseEnum<T>(input)) : None;
-            }
-            catch (ArgumentException)
-            {
-                return None;
-            }
-        }
+        public static readonly string[] Directions = {
+            "north", "south", "east", "west"
+        };
 
-        public static (Option<Command>, Option<Direction>) ParseInput(string input)
+        public static (Option<string>, Option<string>) ParseInput(string input)
         {
-            if (input.Length == 0) return (None, None);
+            if (input.Length == 0 || input == "") return (None, None);
 
             // Command with no argument
             if (!input.Contains(' '))
             {
-                return ToEnum<Command>(input).Match(
-                    None: () => (None, None),
-                    Some: (comm) => (Some(comm), None));
+                return Commands.Contains(input) ? (Some(input), None) : (None, None);
             }
 
             // Command with argument
             var chunks = input.Split(" ");
-            Option<Command> commWithArg = ToEnum<Command>(chunks[0]);
-            Option<Direction> arg = ToEnum<Direction>(chunks[1]);
-            if (commWithArg != None && arg != None)
-            {
-                return (commWithArg, arg);
-            }
+            return (Commands.Contains(chunks[0]) &&
+                    Directions.Contains(chunks[1])) ?
+                    (Some(chunks[0]), Some(chunks[1])) :
+                    (None, None);
 
-            return (None, None);
         }
     }
 }
