@@ -24,11 +24,11 @@ namespace game
             restart
          */
 
-        public static readonly string[] Commands = {
+        public static readonly HashSet<string> Commands = new HashSet<string>{
             "go", "look", "pickup", "drop", "use",
-            "put", "open", "inventory", "save", "load", "restart" };
+            "put", "open", "inventory", "save", "load", "restart", "quit" };
 
-        public static readonly string[] Directions = {
+        public static readonly HashSet<string> Directions = new HashSet<string> {
             "north", "south", "east", "west"
         };
 

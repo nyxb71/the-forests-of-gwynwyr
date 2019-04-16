@@ -33,7 +33,7 @@ namespace Tests
          */
 
         [Test]
-        public void TestParserNoArgs()
+        public void TestParserValidCommandNoArgs()
         {
             foreach (var e in Parser.Commands)
             {
@@ -42,7 +42,7 @@ namespace Tests
         }
 
         [Test]
-        public void TestParserWithDirectionArg()
+        public void TestParserWithCommandWithDirectionArg()
         {
             foreach (var comm in new string[] { "go", "look" })
             {
@@ -58,11 +58,11 @@ namespace Tests
         [Test]
         public void TestParseInvalidCommands()
         {
-            Assert.IsTrue(Parser.ParseInput("asdf") == (None, None));
-            Assert.IsTrue(Parser.ParseInput("") == (None, None));
-            Assert.IsTrue(Parser.ParseInput(" ") == (None, None));
-            Assert.IsTrue(Parser.ParseInput(" asdf") == (None, None));
-            Assert.IsTrue(Parser.ParseInput("foo asdf") == (None, None));
+            foreach (var input in new HashSet<string> {
+                "asdf", "", " ", " asdf", "foo asdf" })
+            {
+                Assert.IsTrue(Parser.ParseInput(input) == (None, None));
+            }
         }
     }
 }

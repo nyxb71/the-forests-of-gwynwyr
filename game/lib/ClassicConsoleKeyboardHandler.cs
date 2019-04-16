@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿// Derived from 
+// https://github.com/SadConsole/SadConsole/blob/master/src/DemoProject/SharedCode/InputHandling/ClassicConsoleKeyboardHandler.cs
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 using SadConsole.Input;

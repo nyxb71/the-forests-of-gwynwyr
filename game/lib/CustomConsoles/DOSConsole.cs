@@ -1,6 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿// Derived from
+// https://github.com/SadConsole/SadConsole/blob/master/src/DemoProject/SharedCode/CustomConsoles/DOSConsole.cs
+
+using Microsoft.Xna.Framework;
 
 using System;
+using LaYumba.Functional;
+using static LaYumba.Functional.F;
+
 
 namespace game.lib.CustomConsoles
 {
@@ -58,35 +64,24 @@ namespace game.lib.CustomConsoles
             _keyboardHandlerObject.CursorLastY = initHeight;
         }
 
-        private void EnterPressedActionHandler(string value)
+        private void EnterPressedActionHandler(string line)
         {
-            if (value.ToLower() == "help")
-            {
-                Cursor.NewLine().
-                              Print("  Advanced Example: Command Prompt - HELP").NewLine().
-                              Print("  =======================================").NewLine().NewLine().
-                              Print("  help      - Display this help info").NewLine().
-                              Print("  ver       - Display version info").NewLine().
-                              Print("  cls       - Clear the screen").NewLine().
-                              Print("  look      - Example adventure game cmd").NewLine().
-                              Print("  exit,quit - Quit the program").NewLine().
-                              Print("  ").NewLine();
-            }
-            else if (value.ToLower() == "ver")
-                Cursor.Print("  SadConsole for MonoGame").NewLine();
+            var command = Parser.ParseInput(line.ToLower());
+            Cursor.Print(command.ToString()).NewLine();
+            // var reply = CommandDispatcher.Dispatch(command.Item1, command.Item2);
+            // Cursor.Print(reply).NewLine();
 
-            else if (value.ToLower() == "cls")
-                ClearText(initHeight);
+            command.Item1.Match(
+                () => { },
+                (c) =>
+                {
+                    if (c == "exit")
+                    {
+                        Environment.Exit(0);
+                    }
+                }
+            );
 
-            else if (value.ToLower() == "look")
-                Cursor.Print("  Looking around you discover that you are in a dark and empty room. To your left there is a computer monitor in front of you and Visual Studio is opened, waiting for your next command.").NewLine();
-
-            else if (value.ToLower() == "exit" || value.ToLower() == "quit")
-            {
-                Environment.Exit(0);
-            }
-            else
-                Cursor.Print("  Unknown command").NewLine();
         }
     }
 }
