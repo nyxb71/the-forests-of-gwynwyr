@@ -41,6 +41,8 @@ namespace game.lib.CustomConsoles
 
             // Enable the keyboard and setup the prompt.
             UseKeyboard = true;
+            // Cursor.PrintAppearance.Foreground = CONFIG.FG;
+            Cursor.SetPrintAppearance(new SadConsole.Cell(CONFIG.FG, CONFIG.BG));
             Cursor.IsVisible = true;
             Prompt = "> ";
 
@@ -66,22 +68,9 @@ namespace game.lib.CustomConsoles
 
         private void EnterPressedActionHandler(string line)
         {
-            var command = Parser.ParseInput(line.ToLower());
+            (var command, var arg) = Parser.ParseInput(line);
             Cursor.Print(command.ToString()).NewLine();
-            // var reply = CommandDispatcher.Dispatch(command.Item1, command.Item2);
-            // Cursor.Print(reply).NewLine();
-
-            command.Item1.Match(
-                () => { },
-                (c) =>
-                {
-                    if (c == "exit")
-                    {
-                        Environment.Exit(0);
-                    }
-                }
-            );
-
+            // CommandDispatcher.Dispatch(command);
         }
     }
 }

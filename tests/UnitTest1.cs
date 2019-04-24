@@ -17,39 +17,25 @@ namespace Tests
         public void Setup()
         {
         }
-        /*
-            Commands:
-            go     <direction>
-            look   <direction|item|entity>
-            pickup <item|entity>
-            drop   <item|entity>
-            use    <item|entity>
-            put    <item|entity>
-            open   <item>
-            inventory
-            save 
-            load
-            restart
-         */
 
         [Test]
         public void TestParserValidCommandNoArgs()
         {
-            foreach (var e in Parser.Commands)
+            foreach (Command comm in System.Enum.GetValues(typeof(Command)))
             {
-                Assert.IsTrue(Parser.ParseInput(e) == (Some(e), None));
+                Assert.IsTrue(Parser.ParseInput(comm.ToString()) == (Some(comm), None));
             }
         }
 
         [Test]
         public void TestParserWithCommandWithDirectionArg()
         {
-            foreach (var comm in new string[] { "go", "look" })
+            foreach (Command comm in new Command[] { Command.go, Command.look })
             {
-                foreach (var dir in Parser.Directions)
+                foreach (Direction dir in System.Enum.GetValues(typeof(Direction)))
                 {
                     Assert.IsTrue(
-                        Parser.ParseInput(comm + " " + dir) ==
+                        Parser.ParseInput(comm.ToString() + " " + dir.ToString()) ==
                         (Some(comm), Some(dir)));
                 }
             }
