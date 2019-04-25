@@ -15,7 +15,9 @@ namespace game
             IsMouseVisible = false;
             base.Initialize();
 
-            var world = new World();
+            var zones = GameData.LoadZones("data/zones.json");
+            var world = new World(zones);
+            var player = new Player();
 
             UserInterface.Init();
         }

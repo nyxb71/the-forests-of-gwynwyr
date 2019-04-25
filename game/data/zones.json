@@ -1,0 +1,101 @@
+[
+    {
+        "location": [0, 0],
+        "name": "foo",
+        "looktexts": {
+            "north": "",
+            "south": "",
+            "east": "",
+            "west": ""
+        },
+        "eventtexts": {"entry": "asdf", "exit": "fdas"}
+    },
+    {
+        "location": [0, 1],
+        "name": "foo",
+        "looktexts": {
+            "north": "",
+            "south": "",
+            "east": "",
+            "west": ""
+        },
+        "eventtexts": {"entry": "asdf", "exit": "fdas"}
+    },
+    {
+        "location": [0, 2],
+        "name": "foo",
+        "looktexts": {
+            "north": "",
+            "south": "",
+            "east": "",
+            "west": ""
+        },
+        "eventtexts": {"entry": "asdf", "exit": "fdas"}
+    },
+    {
+        "location": [1, 0],
+        "name": "foo",
+        "looktexts": {
+            "north": "",
+            "south": "",
+            "east": "",
+            "west": ""
+        },
+        "eventtexts": {"entry": "asdf", "exit": "fdas"}
+    },
+    {
+        "location": [1, 1],
+        "name": "The Glade",
+        "looktexts": {
+            "north": "",
+            "south": "",
+            "east": "",
+            "west": ""
+        },
+        "eventtexts": {"entry": "You see a small glade before you, vermillion moss covers the rocky surface of the forest floor. Shafts of sunlight peek through a dense canopy of figs and beech trees", "exit": "fdas"}
+    },
+    {
+        "location": [1, 2],
+        "name": "foo",
+        "looktexts": {
+            "north": "",
+            "south": "",
+            "east": "",
+            "west": ""
+        },
+        "eventtexts": {"entry": "asdf", "exit": "fdas"}
+    },
+    {
+        "location": [2, 0],
+        "name": "foo",
+        "looktexts": {
+            "North": "",
+            "South": "",
+            "East": "",
+            "West": ""
+        },
+        "eventtexts": {"entry": "asdf", "exit": "fdas"}
+    },
+    {
+        "location": [2, 1],
+        "name": "foo",
+        "looktexts": {
+            "north": "",
+            "south": "",
+            "east": "",
+            "west": ""
+        },
+        "eventtexts": {"entry": "asdf", "exit": "fdas"}
+    },
+    {
+        "location": [2, 2],
+        "name": "foo",
+        "looktexts": {
+            "north": "",
+            "south": "",
+            "east": "",
+            "west": ""
+        },
+        "eventtexts": {"entry": "asdf", "exit": "fdas"}
+    }
+]

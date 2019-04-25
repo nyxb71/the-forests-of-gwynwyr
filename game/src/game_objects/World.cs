@@ -11,9 +11,10 @@ namespace game {
         private List<Zone> Zones;
         private QuickGraph.BidirectionalGraph<Zone, Edge<Zone>> ZoneMap;
 
-        public World() {
-            Zones = new List<Zone>();
-            ZoneMap = new QuickGraph.BidirectionalGraph<Zone, Edge<Zone>>();
+        public World(List<Zone> zones) {
+            this.Zones = zones;
+            this.ZoneMap = new QuickGraph.BidirectionalGraph<Zone, Edge<Zone>>();
+            Update();
         }
 
         public void AddZone(Zone zone) {
@@ -21,10 +22,11 @@ namespace game {
             ZoneMap.AddVertex(zone);
         }
 
-        public void UpdateZoneConnections() {
+        public void Update() {
             foreach (Zone a in Zones) {
                 foreach (Zone b in Zones) {
-                    if (Zone.IsAdjacent(a, b)) {
+                    if (Zone.IsAdjacent(a, b) && !ZoneMap.ContainsEdge(a, b))
+                    {
                         ZoneMap.AddEdge(new Edge<Zone>(a, b));
                     }
                 }
