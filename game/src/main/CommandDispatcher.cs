@@ -48,13 +48,15 @@ namespace game
                                 case Command.quit:
                                     Quit();
                                     break;
+                                case Command.help:
+                                    Help();
+                                    break;
 
                             }
                         }
                     );
                 }
             );
-
         }
     }
 }

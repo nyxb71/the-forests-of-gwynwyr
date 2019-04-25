@@ -38,7 +38,7 @@ namespace game
 
             if (trimmed.Length == 0) return (None, None);
 
-            // Command with no argument
+            // Command without argument
             if (!trimmed.Contains(" "))
             {
                 return ToEnum<Command>(trimmed).Match(
@@ -47,10 +47,9 @@ namespace game
             }
 
             // Command with argument
-            var chunks = trimmed.Split(" ");
-            return ToEnum<Command>(chunks[0]).Match(
+            return ToEnum<Command>(trimmed.Split(" ")[0]).Match(
                 () => (None, None),
-                (command) => ToEnum<Direction>(chunks[1]).Match(
+                (command) => ToEnum<Direction>(trimmed.Split(" ")[1]).Match(
                     () => (None, None),
                     (commandArg) => (Some(command), Some(commandArg))
                 )

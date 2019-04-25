@@ -69,8 +69,8 @@ namespace game.lib.CustomConsoles
         private void EnterPressedActionHandler(string line)
         {
             (var command, var arg) = Parser.ParseInput(line);
-            Cursor.Print(command.ToString()).NewLine();
-            // CommandDispatcher.Dispatch(command);
+            Cursor.Print(command.ToString() + " " + arg.ToString()).NewLine();
+            // CommandDispatcher.Dispatch(command, arg);
         }
     }
 }
