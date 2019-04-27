@@ -23,7 +23,7 @@ namespace game
 
             Zones = GameData.LoadZones("data/zones.json");
             World = new World(Zones);
-            Player = new Player();
+            Player = new Player(Zones[5], 50);
 
             Action<string> EnterPressedAction = (input) => {
                 (var command, var arg) = Parser.ParseInput(input);
