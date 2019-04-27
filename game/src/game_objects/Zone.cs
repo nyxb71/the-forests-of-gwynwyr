@@ -14,10 +14,9 @@ namespace game {
         private readonly Dictionary<string, string> EventTexts;
 
         public Zone(string name,
-            Location loc,
-            Dictionary<Direction, string> look_texts,
-            Dictionary<string, string> event_texts
-            )
+                    Location loc,
+                    Dictionary<Direction, string> look_texts,
+                    Dictionary<string, string> event_texts)
         {
             this.Name = name;
             this.Loc = loc;
@@ -33,6 +32,10 @@ namespace game {
             return (Math.Abs(a.Loc.x - b.Loc.x) +
                     Math.Abs(a.Loc.y - b.Loc.y)) == 1 ?
                     true : false;
+        }
+
+        public bool IsAdjacent(Zone b) {
+            return IsAdjacent(this, b);
         }
     }
 }
