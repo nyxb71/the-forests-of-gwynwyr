@@ -1,4 +1,4 @@
-﻿// Derived from 
+﻿// Derived from
 // https://github.com/SadConsole/SadConsole/blob/master/src/DemoProject/SharedCode/InputHandling/ClassicConsoleKeyboardHandler.cs
 
 using Microsoft.Xna.Framework;
@@ -18,7 +18,7 @@ namespace game.lib.InputHandling
         public int CursorLastY;
 
         // this is a callback for the owner of this keyboard handler. It is called when the user presses ENTER.
-        public Action<string> EnterPressedAction = (s) => { int i = s.Length; };
+        public Action<string> EnterPressedAction;
 
         public override void ProcessKeyboard(SadConsole.Console consoleObject, SadConsole.Input.Keyboard info, out bool handled)
         {
@@ -70,7 +70,7 @@ namespace game.lib.InputHandling
                     console.Cursor.CarriageReturn().LineFeed();
 
                     // Send the string data
-                    EnterPressedAction(data);
+                    EnterPressedAction(data.TrimStart(prompt[0]).Trim().ToLower());
 
                     // After they have processed the string, we will create a new line and display the prompt.
                     console.Cursor.CarriageReturn().LineFeed();

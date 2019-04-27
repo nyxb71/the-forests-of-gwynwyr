@@ -7,7 +7,7 @@ namespace game
 {
     public class UserInterface
     {
-        public static void Init()
+        public static void Init(Action<string> EnterPressedAction)
         {
             SadConsole.Game.Instance.Window.Title = CONFIG.TITLE;
             SadConsole.Settings.ResizeMode =
@@ -15,7 +15,9 @@ namespace game
             SadConsole.Settings.AllowWindowResize = true;
 
             var prompt = new lib.CustomConsoles.DOSConsole(
-                CONFIG.WIDTH, CONFIG.HEIGHT - 1)
+                EnterPressedAction,
+                CONFIG.WIDTH,
+                CONFIG.HEIGHT - 1)
             {
                 Position = new Point(0, 1),
                 UseKeyboard = true

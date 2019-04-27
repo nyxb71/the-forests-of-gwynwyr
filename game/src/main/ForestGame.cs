@@ -27,7 +27,13 @@ namespace game
             Player = new Player();
             GameEvents = new GameEventQueue();
 
-            UserInterface.Init();
+            Action<string> EnterPressedAction = (input) => {
+                (var command, var arg) = Parser.ParseInput(input);
+                Console.WriteLine(command + " " + arg);
+                CommandHandler.Dispatch(World, Zones, Player, command, arg);
+            };
+
+            UserInterface.Init(EnterPressedAction);
         }
 
         protected override void LoadContent()

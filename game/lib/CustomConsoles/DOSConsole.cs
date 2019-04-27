@@ -10,17 +10,25 @@ using static LaYumba.Functional.F;
 
 namespace game.lib.CustomConsoles
 {
+    public class EnterPressedArgs : EventArgs {
+        public string Input { get; set; }
+    }
+
+    public delegate void EnterPressedHandler(object sender, EnterPressedArgs e);
+
+
     class DOSConsole : SadConsole.ScrollingConsole
     {
         public string Prompt { get; set; }
         private int initHeight = 32;
 
+        public event EnterPressedHandler EnterPressed;
+
         private game.lib.InputHandling.ClassicConsoleKeyboardHandler _keyboardHandlerObject;
 
         // This console domonstrates a classic MS-DOS or Windows Command Prompt
         // style console.
-        public DOSConsole(int width, int height)
-            : base(width, height)
+        public DOSConsole(Action<string> EnterPressedAction, int width, int height) : base(width, height)
         {
             // this.IsVisible = false;
 
@@ -37,7 +45,7 @@ namespace game.lib.CustomConsoles
             // Our custom handler has a call back for processing the commands
             // the user types. We could handle this in any method object
             // anywhere, but we've implemented it on this console directly.
-            _keyboardHandlerObject.EnterPressedAction = EnterPressedActionHandler;
+            _keyboardHandlerObject.EnterPressedAction = EnterPressedAction;
 
             // Enable the keyboard and setup the prompt.
             UseKeyboard = true;
@@ -64,13 +72,6 @@ namespace game.lib.CustomConsoles
             Clear();
             Cursor.Position = new Point(0, initHeight);
             _keyboardHandlerObject.CursorLastY = initHeight;
-        }
-
-        private void EnterPressedActionHandler(string line)
-        {
-            (var command, var arg) = Parser.ParseInput(line);
-            Cursor.Print(command.ToString() + " " + arg.ToString()).NewLine();
-            // CommandDispatcher.Dispatch(command, arg);
         }
     }
 }
