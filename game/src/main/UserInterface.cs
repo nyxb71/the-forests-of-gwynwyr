@@ -7,7 +7,7 @@ namespace game
 {
     public class UserInterface
     {
-        public static void Init(Action<string> EnterPressedAction)
+        public static (DOSConsole, StatusBar) Init(Action<string> EnterPressedAction)
         {
             SadConsole.Game.Instance.Window.Title = CONFIG.TITLE;
             SadConsole.Settings.ResizeMode =
@@ -30,14 +30,13 @@ namespace game
             };
             SadConsole.Global.CurrentScreen.Children.Add(statusBar);
 
-            statusBar.Render("The Clearing", "NSEW", 1, 2, 3);
-
             SadConsole.Global.FocusedConsoles.Set(prompt);
 
+            return (prompt, statusBar);
         }
     }
 
-    internal class InvertedBar : SadConsole.Console
+    public class InvertedBar : SadConsole.Console
     {
         public InvertedBar(Color fg, Color bg) : base(CONFIG.WIDTH, 1)
         {
@@ -55,9 +54,10 @@ namespace game
 
     }
 
-    internal class StatusBar : InvertedBar
+    public class StatusBar : InvertedBar
     {
-        private readonly string _fmtString = "LOC: {0,-30} | EXITS: {1,-4} " +
+        private readonly string _fmtString =
+            "LOC: {0,-30} | EXITS: {1,-8} " +
             "| HP: {2,-3} | LVL: {3,-2} | XP: {4,-4} |";
 
         public StatusBar(Color fg, Color bg) : base(fg, bg)
