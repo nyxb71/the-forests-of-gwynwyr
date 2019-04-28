@@ -8,6 +8,7 @@ namespace game
     {
         public static List<Zone> GenerateZones(int n) {
             var zones = new List<Zone>();
+
             var default_look_texts = new Dictionary<Direction, string>() {
                 { Direction.north, "look_north" },
                 { Direction.south, "look_south" },
@@ -24,7 +25,7 @@ namespace game
                 for (int j = 0; j < n; j++) {
                     Console.WriteLine($"GENERATED ZONE: {i},{j}");
                     zones.Add(new Zone(
-                        "Zone" + i + j,
+                        string.Format($"Zone{i},{j}"),
                         new Location(i, j),
                         default_look_texts,
                         default_event_texts
@@ -34,10 +35,5 @@ namespace game
 
             return zones;
         }
-
-
-        // "You see a small glade before you, vermillion moss covers the rocky surface of the forest floor. Shafts of sunlight peek through a dense canopy of figs and beech trees",
-
-
     }
 }

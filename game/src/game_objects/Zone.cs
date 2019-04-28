@@ -31,33 +31,15 @@ namespace game {
             // send look event
         }
 
-        // https://snipplr.com/view/64354/check-if-coordinates-are-adjacent/
-        public static bool IsAdjacent(Location a, Location b) =>
-         ((Math.Abs(a.x - b.x) + Math.Abs(a.y - b.y)) == 1) ?
-                true : false;
-
         public static bool IsAdjacent(Zone a, Zone b) =>
-            IsAdjacent(a.Location, b.Location);
+            Location.IsAdjacent(a.Location, b.Location);
 
         public bool IsAdjacent(Zone b) => IsAdjacent(this, b);
 
-        public Option<Direction> DirectionTo(Zone a, Zone b) {
-            if (!IsAdjacent(a, b)) {
-                return None;
-            }
-
-            if (a.Location.y == b.Location.y) {
-                return (b.Location.x > a.Location.x) ?
-                    Direction.east : Direction.west;
-            }
-
-            if (a.Location.x == b.Location.x) {
-                return (b.Location.y < a.Location.y) ?
-                    Direction.north : Direction.south;
-            }
-
-            return None;
-        }
+        public static Option<Direction> DirectionTo(Zone a, Zone b) =>
+            IsAdjacent(a, b) ?
+                Location.DirectionTo(a.Location, b.Location) :
+                None;
 
         public Option<Direction> DirectionTo(Zone b) => DirectionTo(this, b);
     }
