@@ -18,7 +18,7 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
-            Zones = GameData.LoadZones();
+            Zones = ZoneFactory.GenerateZones(3);
         }
 
         [Test]

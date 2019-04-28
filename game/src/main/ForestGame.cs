@@ -27,7 +27,7 @@ namespace game
             IsMouseVisible = false;
             base.Initialize();
 
-            Zones = GameData.LoadZones();
+            Zones = ZoneFactory.GenerateZones(3);
             World = new World(Zones);
             Player = new Player(Zones[4], 50); // the center zone
             CommandHandler = new CommandHandler(World, Zones, Player);

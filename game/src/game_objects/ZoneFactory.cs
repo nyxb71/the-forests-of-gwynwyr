@@ -1,13 +1,12 @@
 using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace game
 {
-    public static class GameData
+    public static class ZoneFactory
     {
-        public static List<Zone> LoadZones() {
+        public static List<Zone> GenerateZones(int n) {
             var zones = new List<Zone>();
             var default_look_texts = new Dictionary<Direction, string>() {
                 { Direction.north, "look_north" },
@@ -21,16 +20,15 @@ namespace game
                 {"exit", "exit event"},
             };
 
-            int n = 3;
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
+                    Console.WriteLine($"GENERATED ZONE: {i},{j}");
                     zones.Add(new Zone(
                         "Zone" + i + j,
                         new Location(i, j),
                         default_look_texts,
                         default_event_texts
                     ));
-                    Console.WriteLine("GENERATED ZONE: " + i + " " + j);
                 }
             }
 
