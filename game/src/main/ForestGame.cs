@@ -22,9 +22,9 @@ namespace game
             IsMouseVisible = false;
             base.Initialize();
 
-            Zones = GameData.LoadZones("data/zones.json");
+            Zones = GameData.LoadZones();
             World = new World(Zones);
-            Player = new Player(Zones[5], 50);
+            Player = new Player(Zones[4], 50); // the center zone
             CommandHandler = new CommandHandler(World, Zones, Player);
 
             Action<string> EnterPressedAction = (input) => {

@@ -14,6 +14,9 @@ namespace game {
         public World(List<Zone> zones) {
             this.Zones = zones;
             this.ZoneMap = new QuickGraph.BidirectionalGraph<Zone, Edge<Zone>>();
+            foreach (Zone z in zones) {
+                ZoneMap.AddVertex(z);
+            }
             Update();
         }
 

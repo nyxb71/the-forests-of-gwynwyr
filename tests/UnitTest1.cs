@@ -13,9 +13,12 @@ namespace Tests
 {
     public class Tests
     {
+        private List<Zone> Zones;
+
         [SetUp]
         public void Setup()
         {
+            Zones = GameData.LoadZones();
         }
 
         [Test]
@@ -48,6 +51,15 @@ namespace Tests
                 "asdf", "", " ", " asdf", "foo asdf" })
             {
                 Assert.IsTrue(Parser.ParseInput(input) == (None, None));
+            }
+        }
+
+        [Test]
+        public void TestZoneLoading()
+        {
+            foreach (Zone z in Zones) {
+                Console.WriteLine($"Zone '{z.Name}' exists.");
+                Assert.IsTrue(z.Name != null);
             }
         }
     }

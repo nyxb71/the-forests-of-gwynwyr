@@ -7,4 +7,8 @@ namespace game {
         }
     }
 
+    public enum Direction {
+        north, south, east, west
+    }
+
 }

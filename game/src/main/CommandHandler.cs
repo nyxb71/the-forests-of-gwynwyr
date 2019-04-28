@@ -30,14 +30,22 @@ namespace game
 
         public void Go(Direction dir) {
             try {
-                var res = Zones.Find((z) =>
+                var res = Zones.Where((z) =>
                     Player.CurrentZone.DirectionTo(z) == dir);
 
-                if (World.ZoneMap.ContainsEdge(Player.CurrentZone, res)) {
-                    Player.MoveTo(res);
+                if (res.Count() > 0) {
+                    Console.WriteLine("Moving to Zone: " + res.First().Name);
+
+                    if (World.ZoneMap.ContainsEdge(Player.CurrentZone, res.First())) {
+                        Player.MoveTo(res.First());
+                    }
+                }
+                else {
+                    Console.WriteLine("Couldn't find zone to move to.");
                 }
             }
             catch (ArgumentNullException) {
+                Console.WriteLine("Couldn't find zone to move to.");
 
             }
         }

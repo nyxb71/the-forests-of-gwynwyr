@@ -10,9 +10,6 @@ namespace game
     public enum Command {
         go, look, quit, help
     }
-    public enum Direction {
-        north, south, east, west
-    }
 
     public static class Parser
     {
