@@ -8,7 +8,7 @@ using static LaYumba.Functional.F;
 namespace game {
     public class Zone : ILook {
         public readonly string Name;
-        public readonly Location Loc;
+        public readonly Location Location;
 
         private readonly Dictionary<Direction, string> LookTexts;
         private readonly Dictionary<string, string> EventTexts;
@@ -19,7 +19,7 @@ namespace game {
                     Dictionary<string, string> event_texts)
         {
             this.Name = name;
-            this.Loc = loc;
+            this.Location = loc;
             this.LookTexts = look_texts;
             this.EventTexts = event_texts;
         }
@@ -33,8 +33,8 @@ namespace game {
 
         public static bool IsAdjacent(Zone a, Zone b) {
             // https://snipplr.com/view/64354/check-if-coordinates-are-adjacent/
-            return (Math.Abs(a.Loc.x - b.Loc.x) +
-                    Math.Abs(a.Loc.y - b.Loc.y)) == 1 ?
+            return (Math.Abs(a.Location.x - b.Location.x) +
+                    Math.Abs(a.Location.y - b.Location.y)) == 1 ?
                     true : false;
         }
 
@@ -45,16 +45,16 @@ namespace game {
                 return None;
             }
 
-            if (Object.Equals(a.Loc, b.Loc) ) {
+            if (Object.Equals(a.Location, b.Location) ) {
                 return None;
             }
 
-            if (a.Loc.y == b.Loc.y) {
-                return b.Loc.x > a.Loc.x ? Direction.east : Direction.west;
+            if (a.Location.y == b.Location.y) {
+                return b.Location.x > a.Location.x ? Direction.east : Direction.west;
             }
 
-            if (a.Loc.x == b.Loc.x) {
-                return b.Loc.y > a.Loc.y ? Direction.north : Direction.south;
+            if (a.Location.x == b.Location.x) {
+                return b.Location.y > a.Location.y ? Direction.north : Direction.south;
             }
 
             return None;
