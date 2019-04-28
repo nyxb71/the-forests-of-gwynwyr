@@ -14,7 +14,7 @@ namespace game
                 SadConsole.Settings.WindowResizeOptions.Fit;
             SadConsole.Settings.AllowWindowResize = true;
 
-            var prompt = new lib.CustomConsoles.DOSConsole(
+            var prompt = new DOSConsole(
                 EnterPressedAction,
                 CONFIG.WIDTH,
                 CONFIG.HEIGHT - 1)

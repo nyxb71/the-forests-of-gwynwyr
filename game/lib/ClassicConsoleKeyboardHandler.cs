@@ -36,7 +36,7 @@ namespace game.lib.InputHandling
                 else if (key.Key == Keys.Back)
                 {
                     // Get the prompt that the console has.
-                    string prompt = ((game.lib.CustomConsoles.DOSConsole)console).Prompt;
+                    string prompt = ((DOSConsole)console).Prompt;
 
                     // If the console has scrolled since the user started typing, adjust the starting row of the virtual cursor by that much.
                     if (console.TimesShiftedUp != 0)
@@ -62,7 +62,7 @@ namespace game.lib.InputHandling
 
                     // Get the prompt to exclude it in determining the total
                     // length of the string the user has typed.
-                    string prompt = ((game.lib.CustomConsoles.DOSConsole)console).Prompt;
+                    string prompt = ((DOSConsole)console).Prompt;
                     int startingIndex = console.GetIndexFromPoint(new Point(prompt.Length, CursorLastY));
                     string data = ((ScrollingConsole)console).GetString(startingIndex, console.GetIndexFromPoint(console.Cursor.Position) - startingIndex);
 
@@ -75,7 +75,7 @@ namespace game.lib.InputHandling
                     // After they have processed the string, we will create a new line and display the prompt.
                     console.Cursor.CarriageReturn().LineFeed();
                     console.Cursor.DisableWordBreak = true;
-                    console.Cursor.Print(((game.lib.CustomConsoles.DOSConsole)console).Prompt);
+                    console.Cursor.Print(((DOSConsole)console).Prompt);
                     console.Cursor.DisableWordBreak = false;
                     CursorLastY = console.Cursor.Position.Y;
 

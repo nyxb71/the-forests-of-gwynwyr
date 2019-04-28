@@ -8,7 +8,7 @@ using LaYumba.Functional;
 using static LaYumba.Functional.F;
 
 
-namespace game.lib.CustomConsoles
+namespace game
 {
     public class EnterPressedArgs : EventArgs {
         public string Input { get; set; }
@@ -17,7 +17,7 @@ namespace game.lib.CustomConsoles
     public delegate void EnterPressedHandler(object sender, EnterPressedArgs e);
 
 
-    class DOSConsole : SadConsole.ScrollingConsole
+    public class DOSConsole : SadConsole.ScrollingConsole
     {
         public string Prompt { get; set; }
         private int initHeight = 32;
