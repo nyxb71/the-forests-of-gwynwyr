@@ -14,9 +14,7 @@ namespace game {
         public World(List<Zone> zones) {
             this.Zones = zones;
             this.ZoneMap = new QuickGraph.BidirectionalGraph<Zone, Edge<Zone>>();
-            foreach (Zone z in zones) {
-                ZoneMap.AddVertex(z);
-            }
+            zones.ForEach(z => ZoneMap.AddVertex(z));
             Update();
         }
 
@@ -37,17 +35,10 @@ namespace game {
             }
         }
 
-        public List<Direction> ZoneExits(Zone a) {
-            var exits = new List<Direction>();
-            foreach (Zone z in Zones) {
-                if (ZoneMap.ContainsEdge(a, z)) {
-                    a.DirectionTo(z).Match(
-                        () => {},
-                        (dir) => {exits.Add(dir);}
-                    );
-                }
-            }
-            return exits;
-        }
+        public List<Direction> ZoneExits(Zone a) =>
+             Zones.Where(m => ZoneMap.ContainsEdge(a, m))
+                  .Select(n => a.DirectionTo(n))
+                  .Bind(p => p)
+                  .ToList();
     }
 }
