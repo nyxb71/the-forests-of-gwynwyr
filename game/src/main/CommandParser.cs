@@ -8,7 +8,7 @@ using static LaYumba.Functional.F;
 namespace game
 {
     public enum Command {
-        go, look, restart, quit, help
+        go, look, quit, help
     }
     public enum Direction {
         north, south, east, west

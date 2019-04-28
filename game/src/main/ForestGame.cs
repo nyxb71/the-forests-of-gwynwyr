@@ -10,6 +10,7 @@ namespace game
         private World World;
         private List<Zone> Zones;
         private Player Player;
+        private CommandHandler CommandHandler;
 
         public ForestsGame() : base("", CONFIG.WIDTH, CONFIG.HEIGHT, null)
         {
@@ -24,11 +25,12 @@ namespace game
             Zones = GameData.LoadZones("data/zones.json");
             World = new World(Zones);
             Player = new Player(Zones[5], 50);
+            CommandHandler = new CommandHandler(World, Zones, Player);
 
             Action<string> EnterPressedAction = (input) => {
                 (var command, var arg) = Parser.ParseInput(input);
-                Console.WriteLine(command + " " + arg);
-                CommandHandler.Dispatch(World, Zones, Player, command, arg);
+                Console.WriteLine("COMMAND PARSED AS: " + command + " " + arg);
+                CommandHandler.Dispatch(command, arg);
             };
 
             UserInterface.Init(EnterPressedAction);
