@@ -62,5 +62,36 @@ namespace Tests
                 Assert.IsTrue(z.Name != null);
             }
         }
+
+        [Test]
+        public void TestIsAdjacenct() {
+            var center = new Location(1, 1);
+
+            var should_be_adjacent = new Location[] {
+                new Location(0, 1), // north
+                new Location(1, 0), // west
+                new Location(1, 2), // east
+                new Location(2, 1), // south
+            };
+
+            foreach (Location loc in should_be_adjacent) {
+                var res = Zone.IsAdjacent(center, loc);
+                Console.WriteLine($"Loc {loc.x},{loc.y} is adjacent to {center.x},{center.y}? {res}");
+                Assert.IsTrue(res);
+            }
+
+            var should_not_be_adjacent = new Location[] {
+                new Location(0, 0), // northwest
+                new Location(2, 0), // southwest
+                new Location(2, 2), // southeast
+                new Location(0, 2), // northeast
+            };
+
+            foreach (Location loc in should_not_be_adjacent) {
+                var res = Zone.IsAdjacent(center, loc);
+                Console.WriteLine($"Loc {loc.x},{loc.y} is NOT adjacent to {center.x},{center.y}? {!res}");
+                Assert.IsFalse(res);
+            }
+        }
     }
 }

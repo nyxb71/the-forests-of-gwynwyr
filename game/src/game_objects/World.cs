@@ -36,5 +36,18 @@ namespace game {
                 }
             }
         }
+
+        public List<Direction> ZoneExits(Zone a) {
+            var exits = new List<Direction>();
+            foreach (Zone z in Zones) {
+                if (ZoneMap.ContainsEdge(a, z)) {
+                    a.DirectionTo(z).Match(
+                        () => {},
+                        (dir) => {exits.Add(dir);}
+                    );
+                }
+            }
+            return exits;
+        }
     }
 }

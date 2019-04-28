@@ -1,8 +1,8 @@
 namespace game {
     public struct Location {
-        public readonly uint x, y;
+        public readonly int x, y;
 
-        public Location(uint a, uint b) {
+        public Location(int a, int b) {
             (x, y) = (a, b);
         }
     }

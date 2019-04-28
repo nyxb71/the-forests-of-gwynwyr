@@ -31,12 +31,13 @@ namespace game {
             // send look event
         }
 
-        public static bool IsAdjacent(Zone a, Zone b) {
-            // https://snipplr.com/view/64354/check-if-coordinates-are-adjacent/
-            return (Math.Abs(a.Location.x - b.Location.x) +
-                    Math.Abs(a.Location.y - b.Location.y)) == 1 ?
-                    true : false;
-        }
+        // https://snipplr.com/view/64354/check-if-coordinates-are-adjacent/
+        public static bool IsAdjacent(Location a, Location b) =>
+         ((Math.Abs(a.x - b.x) + Math.Abs(a.y - b.y)) == 1) ?
+                true : false;
+
+        public static bool IsAdjacent(Zone a, Zone b) =>
+            IsAdjacent(a.Location, b.Location);
 
         public bool IsAdjacent(Zone b) => IsAdjacent(this, b);
 
@@ -45,16 +46,14 @@ namespace game {
                 return None;
             }
 
-            if (Object.Equals(a.Location, b.Location) ) {
-                return None;
-            }
-
             if (a.Location.y == b.Location.y) {
-                return b.Location.x > a.Location.x ? Direction.east : Direction.west;
+                return (b.Location.x > a.Location.x) ?
+                    Direction.east : Direction.west;
             }
 
             if (a.Location.x == b.Location.x) {
-                return b.Location.y > a.Location.y ? Direction.north : Direction.south;
+                return (b.Location.y < a.Location.y) ?
+                    Direction.north : Direction.south;
             }
 
             return None;
