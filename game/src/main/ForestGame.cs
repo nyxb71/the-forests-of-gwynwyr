@@ -14,6 +14,8 @@ namespace game
         private CommandHandler CommandHandler;
         private DOSConsole Prompt;
         private StatusBar StatusBar;
+        private const float XPInterval = 10;
+        private float XPTimer;
 
         public ForestsGame() : base("", CONFIG.WIDTH, CONFIG.HEIGHT, null)
         {
@@ -40,6 +42,8 @@ namespace game
             };
 
             (Prompt, StatusBar) = UserInterface.Init(EnterPressedAction);
+
+            XPTimer = XPInterval;
         }
 
         protected override void LoadContent()
@@ -49,6 +53,12 @@ namespace game
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
+
+            XPTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (XPTimer < 0) {
+                Player.AddExperience(1);
+                XPTimer = XPInterval;
+            }
 
             StatusBar.Render(Player.CurrentZone.Name,
                 string.Join(",", World.ZoneExits(Player.CurrentZone)
