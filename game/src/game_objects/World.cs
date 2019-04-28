@@ -8,8 +8,8 @@ using QuickGraph;
 
 namespace game {
     public class World {
-        private List<Zone> Zones;
-        private QuickGraph.BidirectionalGraph<Zone, Edge<Zone>> ZoneMap;
+        public List<Zone> Zones { get; private set; }
+        public QuickGraph.BidirectionalGraph<Zone, Edge<Zone>> ZoneMap { get; private set; }
 
         public World(List<Zone> zones) {
             this.Zones = zones;
@@ -20,6 +20,7 @@ namespace game {
         public void AddZone(Zone zone) {
             Zones.Add(zone);
             ZoneMap.AddVertex(zone);
+            Update();
         }
 
         public void Update() {

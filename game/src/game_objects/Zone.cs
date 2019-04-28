@@ -6,7 +6,7 @@ using LaYumba.Functional;
 using static LaYumba.Functional.F;
 
 namespace game {
-    public class Zone {
+    public class Zone : ILook {
         public readonly string Name;
         public readonly Location Loc;
 
@@ -24,8 +24,12 @@ namespace game {
             this.EventTexts = event_texts;
         }
 
+        // TODO: make this an event
         public string OnEntry() => EventTexts["Entry"];
-        public string OnLook(Direction dir) => LookTexts[dir];
+
+        public void Look(Direction dir) {
+            // send look event
+        }
 
         public static bool IsAdjacent(Zone a, Zone b) {
             // https://snipplr.com/view/64354/check-if-coordinates-are-adjacent/
@@ -34,8 +38,28 @@ namespace game {
                     true : false;
         }
 
-        public bool IsAdjacent(Zone b) {
-            return IsAdjacent(this, b);
+        public bool IsAdjacent(Zone b) => IsAdjacent(this, b);
+
+        public Option<Direction> DirectionTo(Zone a, Zone b) {
+            if (!IsAdjacent(a, b)) {
+                return None;
+            }
+
+            if (Object.Equals(a.Loc, b.Loc) ) {
+                return None;
+            }
+
+            if (a.Loc.y == b.Loc.y) {
+                return b.Loc.x > a.Loc.x ? Direction.east : Direction.west;
+            }
+
+            if (a.Loc.x == b.Loc.x) {
+                return b.Loc.y > a.Loc.y ? Direction.north : Direction.south;
+            }
+
+            return None;
         }
+
+        public Option<Direction> DirectionTo(Zone b) => DirectionTo(this, b);
     }
 }
