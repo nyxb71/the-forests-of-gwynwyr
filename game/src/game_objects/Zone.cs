@@ -24,12 +24,7 @@ namespace game {
             this.EventTexts = event_texts;
         }
 
-        // TODO: make this an event
-        public string OnEntry() => EventTexts["Entry"];
-
-        public void Look(Direction dir) {
-            // send look event
-        }
+        public string Look(Direction dir) => LookTexts[dir];
 
         public static bool IsAdjacent(Zone a, Zone b) =>
             Location.IsAdjacent(a.Location, b.Location);

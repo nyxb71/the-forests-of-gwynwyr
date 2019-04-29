@@ -1,7 +1,7 @@
 using System;
 
 namespace game {
-    public class Character : ILook{
+    public class Character : IGo, ILook {
         public Zone CurrentZone { get; private set; }
         public uint Health {get; private set;}
         public bool Alive {get; private set;}
@@ -12,15 +12,12 @@ namespace game {
             this.Alive = true;
         }
 
-        public void MoveTo(Zone zone) {
+        public void Go(Zone zone) {
             this.CurrentZone = zone;
             // send zone change event
         }
 
-        public void Look(Direction dir) {
-            CurrentZone.Look(dir);
-            // send look event
-        }
+        public string Look(Direction dir) => CurrentZone.Look(dir);
 
         public void TakeDamage(uint dmg) {
             if (Health >= dmg) {

@@ -44,7 +44,8 @@ namespace game
                     Console.WriteLine("Moving to Zone: " + res.First().Name);
 
                     if (World.ZoneMap.ContainsEdge(Player.CurrentZone, res.First())) {
-                        Player.MoveTo(res.First());
+                        Player.Go(res.First());
+                        Prompt.PrintText($"You entered zone: {Player.CurrentZone.Name}");
                     }
                 }
                 else {
@@ -58,7 +59,8 @@ namespace game
         }
 
         public void Look(Direction dir) {
-            Player.Look(dir);
+            Prompt.PrintText(Player.Look(dir));
+
         }
 
         public void Dispatch(

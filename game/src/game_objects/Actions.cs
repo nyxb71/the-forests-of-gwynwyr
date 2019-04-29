@@ -1,10 +1,10 @@
 
 namespace game {
     interface IGo {
-        void Go(Direction dir);
+        void Go(Zone z);
     }
 
     interface ILook {
-        void Look(Direction dir);
+        string Look(Direction dir);
     }
 }
