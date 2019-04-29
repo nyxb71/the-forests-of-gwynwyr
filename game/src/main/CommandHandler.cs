@@ -66,6 +66,10 @@ namespace game
 
         }
 
+        public void InvalidCommand() {
+            Prompt.PrintText("Invalid command. Type 'help' for commands.");
+        }
+
         public void Dispatch(
             Option<Command> comm,
             Option<Direction> arg)
@@ -82,6 +86,9 @@ namespace game
                                 case Command.help:
                                     Help();
                                     break;
+                                default:
+                                    InvalidCommand();
+                                    break;
                             }
                         },
                         (commandArg) => {
@@ -97,6 +104,9 @@ namespace game
                                     break;
                                 case Command.help:
                                     Help();
+                                    break;
+                                default:
+                                    InvalidCommand();
                                     break;
                             }
                         }
