@@ -45,6 +45,8 @@ namespace game
             Prompt.Clear();
             Prompt.PrintText("Welcome to The Forests of Gwynwyr\n");
             CommandHandler.Help();
+            Prompt.PrintText("Press F5 for fullscreen (recommended)");
+            Prompt.PrintText("Press ESC to quit.");
             Prompt.PrintText("Press ENTER to start.");
         }
 
@@ -72,7 +74,6 @@ namespace game
 
             if (Keyboard.GetState().IsKeyDown(Keys.F5))
                 SadConsole.Settings.ToggleFullScreen();
-
 
             DoIfTimerElapsed(
                 (float)gameTime.ElapsedGameTime.TotalSeconds,
