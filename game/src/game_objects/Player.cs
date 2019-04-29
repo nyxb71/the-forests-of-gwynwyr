@@ -18,7 +18,6 @@ namespace game
             var new_level = CalcLevel(Experience);
             if (new_level != Level) {
                 Level = new_level;
-                // send level up event
             }
         }
     }

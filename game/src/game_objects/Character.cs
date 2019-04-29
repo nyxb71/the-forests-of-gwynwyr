@@ -14,7 +14,6 @@ namespace game {
 
         public void Go(Zone zone) {
             this.CurrentZone = zone;
-            // send zone change event
         }
 
         public string Look(Direction dir) => CurrentZone.Look(dir);
@@ -31,7 +30,6 @@ namespace game {
 
         public void Die() {
             Alive = false;
-            // send death event
         }
     }
 }

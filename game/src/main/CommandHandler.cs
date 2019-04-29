@@ -27,12 +27,19 @@ namespace game
         }
 
         public void Quit() {
-            Console.WriteLine("Exiting...");
             Environment.Exit(0);
         }
 
         public void Help() {
-
+            var helptexts = new string[] {
+                "-- Commands --",
+                "go   <north|south|east|west> : go to zone in specified direction",
+                "look <north|south|east|west> : look in a direction",
+                "quit                         : quit the game",
+                "help                         : show this text",
+                "",
+            };
+            Prompt.PrintText(helptexts);
         }
 
         public void Go(Direction dir) {
@@ -41,20 +48,15 @@ namespace game
                     Player.CurrentZone.DirectionTo(z) == dir);
 
                 if (res.Count() > 0) {
-                    Console.WriteLine("Moving to Zone: " + res.First().Name);
-
                     if (World.ZoneMap.ContainsEdge(Player.CurrentZone, res.First())) {
                         Player.Go(res.First());
                         Prompt.PrintText($"You entered zone: {Player.CurrentZone.Name}");
                     }
                 }
                 else {
-                    Console.WriteLine("Couldn't find zone to move to.");
                 }
             }
             catch (ArgumentNullException) {
-                Console.WriteLine("Couldn't find zone to move to.");
-
             }
         }
 

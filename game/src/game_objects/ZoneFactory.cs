@@ -23,7 +23,6 @@ namespace game
 
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    Console.WriteLine($"GENERATED ZONE: {i},{j}");
                     zones.Add(new Zone(
                         string.Format($"Zone{i},{j}"),
                         new Location(i, j),

@@ -36,12 +36,8 @@ namespace game
             CommandHandler = new CommandHandler(World, Zones, Player, Prompt);
 
             Action<string> EnterPressedAction = (input) => {
-                Console.WriteLine("INPUT: " + input);
                 (var command, var arg) = Parser.ParseInput(input);
-                Console.WriteLine("COMMAND PARSED AS: " + command + " " + arg);
                 CommandHandler.Dispatch(command, arg);
-                Console.WriteLine("CURRENT ZONE: " + Player.CurrentZone.Name);
-                Console.WriteLine(new string('-', 60));
             };
 
             Prompt.SetHandler(EnterPressedAction);
