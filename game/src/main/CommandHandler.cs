@@ -12,11 +12,18 @@ namespace game
         private readonly World World;
         private readonly List<Zone> Zones;
         private Player Player;
+        private lib.DOSConsole Prompt;
 
-        public CommandHandler(World world, List<Zone> zones, Player player) {
+        public CommandHandler(
+                World world,
+                List<Zone> zones,
+                Player player,
+                lib.DOSConsole prompt
+                ) {
             this.World = world;
             this.Zones = zones;
             this.Player = player;
+            this.Prompt = prompt;
         }
 
         public void Quit() {

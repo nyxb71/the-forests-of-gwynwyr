@@ -12,7 +12,7 @@ namespace game
         private List<Zone> Zones;
         private Player Player;
         private CommandHandler CommandHandler;
-        private DOSConsole Prompt;
+        private lib.DOSConsole Prompt;
         private StatusBar StatusBar;
         private const float XPInterval = 10;
         private float XPTimer;
@@ -30,7 +30,10 @@ namespace game
             Zones = ZoneFactory.GenerateZones(3);
             World = new World(Zones);
             Player = new Player(Zones[4], 50); // the center zone
-            CommandHandler = new CommandHandler(World, Zones, Player);
+
+            (Prompt, StatusBar) = UserInterface.Init();
+
+            CommandHandler = new CommandHandler(World, Zones, Player, Prompt);
 
             Action<string> EnterPressedAction = (input) => {
                 Console.WriteLine("INPUT: " + input);
@@ -41,9 +44,15 @@ namespace game
                 Console.WriteLine(new string('-', 60));
             };
 
-            (Prompt, StatusBar) = UserInterface.Init(EnterPressedAction);
+            Prompt.SetHandler(EnterPressedAction);
 
             XPTimer = XPInterval;
+
+
+            Prompt.Clear();
+            Prompt.PrintText("Welcome to The Forests of Gwynwyr\n");
+            CommandHandler.Help();
+            Prompt.PrintText("Press ENTER to start.");
         }
 
         protected override void LoadContent()

@@ -7,15 +7,14 @@ namespace game
 {
     public class UserInterface
     {
-        public static (DOSConsole, StatusBar) Init(Action<string> EnterPressedAction)
+        public static (lib.DOSConsole, StatusBar) Init()
         {
             SadConsole.Game.Instance.Window.Title = CONFIG.TITLE;
             SadConsole.Settings.ResizeMode =
                 SadConsole.Settings.WindowResizeOptions.Fit;
             SadConsole.Settings.AllowWindowResize = true;
 
-            var prompt = new DOSConsole(
-                EnterPressedAction,
+            var prompt = new lib.DOSConsole(
                 CONFIG.WIDTH,
                 CONFIG.HEIGHT - 1)
             {
