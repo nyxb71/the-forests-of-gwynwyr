@@ -13,7 +13,7 @@ namespace game.lib
     public class DOSConsole : SadConsole.ScrollingConsole
     {
         public string Prompt { get; set; }
-        private int initHeight = 32;
+        private int InitHeight = 32;
 
         private game.lib.ClassicConsoleKeyboardHandler _keyboardHandlerObject;
 
@@ -49,10 +49,10 @@ namespace game.lib
 
 
             // Startup description
-            ClearText(initHeight);
-            Cursor.Position = new Point(0, initHeight);
+            ClearText(InitHeight);
+            Cursor.Position = new Point(0, InitHeight);
             Cursor.Print("").NewLine().NewLine();
-            _keyboardHandlerObject.CursorLastY = initHeight;
+            _keyboardHandlerObject.CursorLastY = InitHeight;
             TimesShiftedUp = 0;
 
             Cursor.DisableWordBreak = true;
