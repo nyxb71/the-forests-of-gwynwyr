@@ -14,8 +14,8 @@ namespace game
         private CommandHandler CommandHandler;
         private lib.DOSConsole Prompt;
         private StatusBar StatusBar;
-        private const float XPInterval = 10;
         private float XPTimer;
+        private float DamageTimer;
 
         public ForestsGame() : base("", CONFIG.WIDTH, CONFIG.HEIGHT, null)
         {
@@ -42,9 +42,6 @@ namespace game
 
             Prompt.SetHandler(EnterPressedAction);
 
-            XPTimer = XPInterval;
-
-
             Prompt.Clear();
             Prompt.PrintText("Welcome to The Forests of Gwynwyr\n");
             CommandHandler.Help();
@@ -55,15 +52,39 @@ namespace game
         {
         }
 
+        private static void DoIfTimerElapsed(
+            float seconds_elapsed,
+            ref float timer,
+            float interval,
+            Action<int> action_to_take,
+            int action_arg)
+        {
+            timer -= (float)seconds_elapsed;
+            if (timer < 0) {
+                action_to_take(action_arg);
+                timer = interval;
+            }
+        }
+
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
 
-            XPTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (XPTimer < 0) {
-                Player.AddExperience(1);
-                XPTimer = XPInterval;
-            }
+            if (Keyboard.GetState().IsKeyDown(Keys.F5))
+                SadConsole.Settings.ToggleFullScreen();
+
+
+            DoIfTimerElapsed(
+                (float)gameTime.ElapsedGameTime.TotalSeconds,
+                ref XPTimer,
+                10,
+                i => Player.AddExperience((uint)i), 1);
+
+            DoIfTimerElapsed(
+                (float)gameTime.ElapsedGameTime.TotalSeconds,
+                ref DamageTimer,
+                20,
+                i => Player.TakeDamage((uint)i), 1);
 
             StatusBar.Render(Player.CurrentZone.Name,
                 string.Join(",", World.ZoneExits(Player.CurrentZone)
