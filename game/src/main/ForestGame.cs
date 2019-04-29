@@ -4,6 +4,9 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
+using LaYumba.Functional;
+using static LaYumba.Functional.F;
+
 namespace game
 {
     public class ForestsGame : SadConsole.Game
@@ -44,7 +47,7 @@ namespace game
 
             Prompt.Clear();
             Prompt.PrintText("Welcome to The Forests of Gwynwyr\n");
-            CommandHandler.Help();
+            CommandHandler.Dispatch(Some(Command.help), None);
             Prompt.PrintText("Press F5 for fullscreen (recommended)");
             Prompt.PrintText("Press ESC to quit.");
             Prompt.PrintText("Press ENTER to start.");

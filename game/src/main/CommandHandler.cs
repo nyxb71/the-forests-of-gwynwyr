@@ -26,11 +26,11 @@ namespace game
             this.Prompt = prompt;
         }
 
-        public void Quit() {
+        private void Quit() {
             Environment.Exit(0);
         }
 
-        public void Help() {
+        private void Help() {
             var helptexts = new string[] {
                 "-- Commands --",
                 "go   <north|south|east|west> : go to zone in specified direction",
@@ -42,7 +42,7 @@ namespace game
             Prompt.PrintText(helptexts);
         }
 
-        public void Go(Direction dir) {
+        private void Go(Direction dir) {
             try {
                 var res = Zones.Where((z) =>
                     Player.CurrentZone.DirectionTo(z) == dir);
@@ -61,14 +61,11 @@ namespace game
             }
         }
 
-        public void Look(Direction dir) {
+        private void Look(Direction dir) =>
             Prompt.PrintText(Player.Look(dir));
 
-        }
-
-        public void InvalidCommand() {
+        private void InvalidCommand() =>
             Prompt.PrintText("Invalid command. Type 'help' for commands.");
-        }
 
         public void Dispatch(
             Option<Command> comm,
