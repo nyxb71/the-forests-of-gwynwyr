@@ -54,6 +54,7 @@ namespace game
                     }
                 }
                 else {
+                    Prompt.PrintText("You have reached the edge of the map.");
                 }
             }
             catch (ArgumentNullException) {
