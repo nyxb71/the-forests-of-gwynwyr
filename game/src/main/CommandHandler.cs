@@ -56,26 +56,16 @@ namespace game
 
         private void Go(Direction dir)
         {
-            try
-            {
-                var res = Zones.Where((z) =>
-                    Player.CurrentZone.DirectionTo(z) == dir);
+            var zones_in_dir = Zones.Where(z =>
+                Zone.DirectionTo(Player.CurrentZone, z) == dir &&
+                World.ZoneMap.ContainsEdge(Player.CurrentZone, z));
 
-                if (res.Count() > 0)
-                {
-                    if (World.ZoneMap.ContainsEdge(Player.CurrentZone, res.First()))
-                    {
-                        Player.Go(res.First());
-                        Prompt.PrintText($"You entered zone: {Player.CurrentZone.Name}");
-                    }
-                }
-                else
-                {
-                    Prompt.PrintText("You have reached the edge of the map.");
-                }
+            if (zones_in_dir.Count() > 0) {
+                Player.Go(zones_in_dir.First());
+                Prompt.PrintText($"You entered zone: {Player.CurrentZone.Name}");
             }
-            catch (ArgumentNullException)
-            {
+            else {
+                Prompt.PrintText("You have reached the edge of the map.");
             }
         }
 
