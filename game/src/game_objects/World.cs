@@ -15,22 +15,20 @@ namespace game {
             this.Zones = zones;
             this.ZoneMap = new QuickGraph.BidirectionalGraph<Zone, Edge<Zone>>();
             zones.ForEach(z => ZoneMap.AddVertex(z));
-            Update();
+            UpdateZoneMap();
         }
 
         public void AddZone(Zone zone) {
             Zones.Add(zone);
             ZoneMap.AddVertex(zone);
-            Update();
+            UpdateZoneMap();
         }
 
-        public void Update() {
+        public void UpdateZoneMap() {
             foreach (Zone a in Zones) {
                 foreach (Zone b in Zones) {
                     if (Zone.IsAdjacent(a, b) && !ZoneMap.ContainsEdge(a, b))
-                    {
                         ZoneMap.AddEdge(new Edge<Zone>(a, b));
-                    }
                 }
             }
         }
