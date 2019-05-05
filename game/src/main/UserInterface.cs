@@ -7,7 +7,10 @@ namespace game
 {
     public class UserInterface
     {
-        public static (lib.DOSConsole, StatusBar) Init()
+        public lib.DOSConsole Prompt;
+        public StatusBar StatusBar;
+
+        public UserInterface()
         {
             SadConsole.Game.Instance.Window.Title = CONFIG.TITLE;
             SadConsole.Settings.ResizeMode =
@@ -31,7 +34,12 @@ namespace game
 
             SadConsole.Global.FocusedConsoles.Set(prompt);
 
-            return (prompt, statusBar);
+            Prompt = prompt;
+            StatusBar = statusBar;
+        }
+
+        public void PrintText(string input) {
+            Prompt.PrintText(input);
         }
     }
 
