@@ -77,10 +77,9 @@ namespace game
 
         private void InvalidCommand(Direction dir) => InvalidCommand();
 
-        public void Dispatch(
-            Option<Command> comm,
-            Option<Direction> arg)
+        public void Dispatch((Option<Command>, Option<Direction>) args)
         {
+            (var comm, var arg) = args;
             comm.Match(
                 None: () => { InvalidCommand(); },
                 Some: (command) =>

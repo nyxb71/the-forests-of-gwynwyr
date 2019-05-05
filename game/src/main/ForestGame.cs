@@ -14,9 +14,7 @@ namespace game
         private World World;
         private List<Zone> Zones;
         private Player Player;
-        private CommandHandler CommandHandler;
-        private lib.DOSConsole Prompt;
-        private StatusBar StatusBar;
+        private UserInterface UI;
         private float XPTimer;
         private float DamageTimer;
 
@@ -30,27 +28,23 @@ namespace game
             IsMouseVisible = false;
             base.Initialize();
 
-            Zones = ZoneFactory.GenerateZones(3);
+            Zones = ZoneFactory.GenerateZones(CONFIG.ZONES_DIMENSION);
             World = new World(Zones);
-            Player = new Player(Zones[4], 50); // the center zone
+            Player = new Player(Zones[CONFIG.ZONES_START], 50); // the center zone
 
-            (Prompt, StatusBar) = UserInterface.Init();
+            UI = new UserInterface();
 
-            CommandHandler = new CommandHandler(World, Zones, Player, Prompt);
+            var CommandHandler = new CommandHandler(World, Zones, Player, UI.Prompt);
 
-            Action<string> EnterPressedAction = (input) => {
-                (var command, var arg) = Parser.ParseInput(input);
-                CommandHandler.Dispatch(command, arg);
-            };
+            UI.Prompt.SetHandler(input => {
+                CommandHandler.Dispatch(Parser.ParseInput(input));});
 
-            Prompt.SetHandler(EnterPressedAction);
-
-            Prompt.Clear();
-            Prompt.PrintText("Welcome to The Forests of Gwynwyr\n");
-            CommandHandler.Dispatch(Some(Command.help), None);
-            Prompt.PrintText("Press F5 for fullscreen (recommended)");
-            Prompt.PrintText("Press ESC to quit.");
-            Prompt.PrintText("Press ENTER to start.");
+            UI.Prompt.Clear();
+            UI.Prompt.PrintText("Welcome to The Forests of Gwynwyr\n");
+            CommandHandler.Dispatch((Some(Command.help), None));
+            UI.Prompt.PrintText("Press F5 for fullscreen (recommended)");
+            UI.Prompt.PrintText("Press ESC to quit.");
+            UI.Prompt.PrintText("Press ENTER to start.");
         }
 
         protected override void LoadContent()
@@ -90,15 +84,15 @@ namespace game
                 20,
                 i => Player.TakeDamage((uint)i), 1);
 
-            StatusBar.Render(Player.CurrentZone.Name,
+            UI.StatusBar.Render(
+                Player.CurrentZone.Name,
                 string.Join(",", World.ZoneExits(Player.CurrentZone)
                     .OrderBy(s => s)
                     .Select(s => s.ToString().ToUpper().First())),
                 Player.Health,
                 Player.Level,
                 Player.Experience
-            );
-
+                );
             base.Update(gameTime);
         }
 
