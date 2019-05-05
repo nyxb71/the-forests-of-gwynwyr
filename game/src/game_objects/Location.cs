@@ -24,8 +24,7 @@ namespace game {
 
         // https://snipplr.com/view/64354/check-if-coordinates-are-adjacent/
         public static bool IsAdjacent(Location a, Location b) =>
-         ((Math.Abs(a.x - b.x) + Math.Abs(a.y - b.y)) == 1) ?
-                true : false;
+            (Math.Abs(a.x - b.x) + Math.Abs(a.y - b.y)) == 1;
 
         public static Option<Direction> DirectionTo(Location a, Location b) {
             if (a.x == b.x && a.y == b.y) {
